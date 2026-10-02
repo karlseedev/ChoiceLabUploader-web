@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Choice Lab Uploader</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #f5f5f7;
+      color: #1d1d1f;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 24px;
+    }
+    .card {
+      background: #fff;
+      border-radius: 18px;
+      padding: 40px 32px;
+      max-width: 520px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+    }
+    h1 { font-size: 28px; font-weight: 700; margin-bottom: 8px; }
+    .subtitle { font-size: 15px; color: #6e6e73; margin-bottom: 24px; }
+    .about { font-size: 15px; line-height: 1.7; text-align: left; margin-bottom: 12px; }
+    ul.about { padding-left: 20px; margin-bottom: 28px; }
+    .contact-label { font-size: 13px; color: #6e6e73; margin-bottom: 8px; }
+    a.email {
+      display: inline-block;
+      font-size: 16px;
+      color: #0071e3;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    a.email:hover { text-decoration: underline; }
+    .divider {
+      border: none;
+      border-top: 1px solid #e5e5ea;
+      margin: 28px 0;
+    }
+    .links { display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; }
+    .links a {
+      font-size: 13px;
+      color: #6e6e73;
+      text-decoration: none;
+    }
+    .links a:hover { color: #0071e3; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1 id="name">Choice Lab Uploader</h1>
+    <p class="subtitle" id="subtitle"></p>
+    <p class="about" id="about"></p>
+    <ul class="about" id="points"></ul>
+    <p class="contact-label" id="contact-label"></p>
+    <a class="email" href="mailto:karl.labs01@gmail.com">karl.labs01@gmail.com</a>
+    <hr class="divider">
+    <div class="links">
+      <a href="" id="privacy-link"></a>
+      <a href="" id="terms-link"></a>
+      <a href="" id="other-lang"></a>
+    </div>
+  </div>
+
+  <script>
+    const forced = new URLSearchParams(location.search).get("lang");
+    const isKo = forced ? forced === "ko" : navigator.language.startsWith("ko");
+    const lang = isKo ? "ko" : "en";
+    document.documentElement.lang = lang;
+    const t = isKo ? {
+      name: "선택연구소 업로더",
+      subtitle: "선택연구소 채널 운영자가 쓰는 개인용 업로드 도구",
+      about: "선택연구소 업로더는 채널 운영자 본인이 자기 컴퓨터에서 실행하는 명령줄 도구입니다. YouTube API 서비스를 이용해 운영자가 직접 만든 영상을 운영자 본인의 YouTube 채널에 올립니다.",
+      points: [
+        "운영자 한 사람만 사용하며, 일반에 제공하지 않습니다.",
+        "운영자 본인의 Google 계정으로 로그인해 본인 채널에만 올립니다.",
+        "서버가 없고, 다른 사람의 정보를 수집하지 않습니다."
+      ],
+      contact: "문의", privacy: "개인정보처리방침", terms: "이용약관", other: "English"
+    } : {
+      name: "Choice Lab Uploader",
+      subtitle: "A personal upload tool used by the owner of the Choice Lab channel",
+      about: "Choice Lab Uploader is a command-line tool that the channel owner runs on their own computer. It uses YouTube API Services to upload videos the owner made to the owner's own YouTube channel.",
+      points: [
+        "Used by one person, the channel owner. It is not offered to the public.",
+        "The owner signs in with their own Google Account and uploads only to their own channel.",
+        "There is no server, and no information about other people is collected."
+      ],
+      contact: "Contact", privacy: "Privacy Policy", terms: "Terms of Use", other: "한국어"
+    };
+    document.title = t.name;
+    document.getElementById("name").textContent = t.name;
+    document.getElementById("subtitle").textContent = t.subtitle;
+    document.getElementById("about").textContent = t.about;
+    const ul = document.getElementById("points");
+    t.points.forEach(p => { const li = document.createElement("li"); li.textContent = p; ul.appendChild(li); });
+    document.getElementById("contact-label").textContent = t.contact;
+    const privacyLink = document.getElementById("privacy-link");
+    const termsLink = document.getElementById("terms-link");
+    const otherLang = document.getElementById("other-lang");
+    privacyLink.href = "privacy-" + lang + ".html";
+    privacyLink.textContent = t.privacy;
+    termsLink.href = "terms-" + lang + ".html";
+    termsLink.textContent = t.terms;
+    otherLang.href = "?lang=" + (isKo ? "en" : "ko");
+    otherLang.textContent = t.other;
+  </script>
+</body>
+</html>
